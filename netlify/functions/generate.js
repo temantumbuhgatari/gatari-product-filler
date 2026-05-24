@@ -44,7 +44,11 @@ exports.handler = async function(event) {
         const parsed = JSON.parse(rawText);
         detail = parsed.error?.message || parsed.message || rawText;
       } catch (_) {}
-      return json(anthropicResp.status, { error: detail });
+      return json(anthropicResp.status, {
+  error: detail,
+  rawText,
+  status: anthropicResp.status
+});
     }
 
     return {
