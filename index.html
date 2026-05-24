@@ -147,7 +147,7 @@ input:focus,select:focus{outline:none;border-color:var(--text);box-shadow:0 0 0 
         <small>JPG, PNG, WEBP — maks 5MB</small>
         <img id="photo-preview" onerror="this.style.display='none';" />
         <button class="photo-remove" onclick="removePhoto(event)">✕ Hapus foto</button>
-        <input type="file" id="foto-input" accept="image/*" style="display:none" onchange="handlePhoto(event)" />
+        <input type="file" id="foto-input" accept="image/*" style="display:none" />
       </div>
     </div>
   </div>
@@ -293,6 +293,9 @@ function removePhoto(e){
 }
 
 const dz = document.getElementById('drop-zone');
+document.getElementById('foto-input').addEventListener('change', function(e){
+  handlePhoto(e);
+});
 dz.addEventListener('click', function(e){
   if(e.target === document.getElementById('foto-input')) return;
   if(e.target.classList.contains('photo-remove')) return;
