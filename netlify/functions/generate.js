@@ -29,7 +29,7 @@ exports.handler = async function(event) {
         "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
-        model: process.env.ANTHROPIC_MODEL || "claude-3-5-sonnet-20241022",
+        model: process.env.ANTHROPIC_MODEL || "claude-3-haiku-20240307",
         max_tokens: 1000,
         system,
         messages: [{ role: "user", content: userContent }]
