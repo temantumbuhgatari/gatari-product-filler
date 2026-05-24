@@ -32,7 +32,7 @@ if (!apiKey) {
         "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
-        model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5-20250514",
+        model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
         max_tokens: 1000,
         system,
         messages: [{ role: "user", content: userContent }]
