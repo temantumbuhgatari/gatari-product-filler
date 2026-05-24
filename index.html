@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gatari — Product Filler Quiz Montessori</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf9f7;
+  --surface:#ffffff;
+  --surface2:#f4f3f0;
+  --border:#e8e6e1;
+  --border2:#d4d1cb;
+  --text:#1a1917;
+  --text2:#6b6860;
+  --text3:#9e9b96;
+  --accent:#1a1917;
+  --green:#166534;
+  --green-bg:#f0fdf4;
+  --green-border:#bbf7d0;
+  --red:#991b1b;
+  --red-bg:#fef2f2;
+  --red-border:#fecaca;
+  --amber:#92400e;
+  --amber-bg:#fffbeb;
+  --amber-border:#fde68a;
+  --radius:8px;
+  --radius-lg:12px;
+}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.6;
+}
+.topbar{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:52px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.logo{font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--text)}
+.logo span{color:var(--text3);font-weight:400;margin-left:6px}
+.api-badge{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:var(--text3);
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#d1d5db}
+.dot.ok{background:#22c55e}
+.container{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.page-title{
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:-.02em;
+  margin-bottom:.25rem;
+}
+.page-sub{font-size:14px;color:var(--text2);margin-bottom:2rem}
+
+
+
+/* SECTIONS */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:1.5rem;
+  margin-bottom:1rem;
+}
+.card-title{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--text3);
+  margin-bottom:1.25rem;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.field{margin-bottom:12px}
+label{
+  display:block;
+  font-size:12px;
+  font-weight:500;
+  color:var(--text2);
+  margin-bottom:5px;
+}
+label .req{color:#e85d04}
+input[type=text],input[type=number],select{
+  width:100%;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  color:var(--text);
+  transition:border-color .15s;
+  -webkit-appearance:none;
+}
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--text);
+  box-shadow:0 0 0 3px rgba(26,25,23,.06);
+}
+
+/* PHOTO ZONE */
+.photo-zone{
+  border:1.5px dashed var(--border2);
+  border-radius:var(--radius-lg);
+  padding:2.5rem 1.5rem;
+  text-align:center;
+  cursor:pointer;
+  transition:.15s;
+  position:relative;
+}
+.photo-zone:hover{border-color:var(--text3);background:var(--surface2)}
+.photo-zone.has-photo{border-style:solid;border-color:var(--border);padding:0;overflow:hidden}
+.photo-zone.drag-over{border-color:var(--text);background:var(--surface2)}
+.upload-icon{
+  width:36px;height:36px;
+  border:1px solid var(--border2);
+  border-radius:var(--radius);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:.75rem;
+  font-size:16px;
+  color:var(--text3);
+}
+.photo-zone p{font-size:13px;color:var(--text3)}
+.photo-zone small{font-size:11px;color:var(--text3);display:block;margin-top:3px}
+#photo-preview{
+  width:100%;
+  max-height:240px;
+  object-fit:contain;
+  display:none;
+  border-radius:var(--radius);
+}
+.photo-remove{
+  position:absolute;
+  top:8px;right:8px;
+  background:rgba(0,0,0,.55);
+  color:white;
+  border:none;
+  border-radius:var(--radius);
+  padding:3px 8px;
+  font-size:11px;
+  cursor:pointer;
+  display:none;
+}
+.has-photo .photo-remove{display:block}
+
+/* GENERATE BTN */
+.gen-btn{
+  width:100%;
+  padding:13px;
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  font-weight:600;
+  background:var(--text);
+  color:white;
+  border:none;
+  border-radius:var(--radius-lg);
+  cursor:pointer;
+  margin-bottom:1.25rem;
+  transition:.15s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.gen-btn:hover{opacity:.88}
+.gen-btn:disabled{opacity:.4;cursor:not-allowed}
+.gen-btn .spinner{
+  width:14px;height:14px;
+  border:2px solid rgba(255,255,255,.3);
+  border-top-color:white;
+  border-radius:50%;
+  animation:spin .6s linear infinite;
+  display:none;
+}
+.gen-btn.loading .spinner{display:block}
+.gen-btn.loading .btn-text::after{content:'...'}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* PROGRESS */
+.progress{
+  height:3px;
+  background:var(--border);
+  border-radius:2px;
+  margin-bottom:1rem;
+  overflow:hidden;
+  display:none;
+}
+.progress-bar{
+  height:100%;
+  background:var(--text);
+  border-radius:2px;
+  transition:width .4s ease;
+}
+
+/* ERROR / SUCCESS */
+.alert{
+  border-radius:var(--radius-lg);
+  padding:.875rem 1rem;
+  font-size:13px;
+  margin-bottom:1rem;
+  display:none;
+}
+.alert.error{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.alert.success{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+
+/* RESULTS */
+.results-card{display:none}
+.result-tabs{
+  display:flex;
+  gap:4px;
+  margin-bottom:1.25rem;
+  border-bottom:1px solid var(--border);
+  padding-bottom:0;
+}
+.rtab{
+  font-size:13px;
+  font-weight:500;
+  padding:8px 14px;
+  border:none;
+  background:transparent;
+  color:var(--text3);
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  font-family:'DM Sans',sans-serif;
+  transition:.12s;
+}
+.rtab:hover{color:var(--text2)}
+.rtab.active{color:var(--text);border-bottom-color:var(--text)}
+.pane{display:none}
+.pane.active{display:block}
+.result-field-wrap{margin-bottom:12px}
+.result-label{
+  font-size:12px;
+  font-weight:500;
+  color:var(--text2);
+  margin-bottom:4px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.copy-btn{
+  font-size:11px;
+  font-family:'DM Sans',sans-serif;
+  color:var(--text3);
+  background:none;
+  border:1px solid var(--border);
+  border-radius:5px;
+  padding:2px 7px;
+  cursor:pointer;
+  transition:.1s;
+}
+.copy-btn:hover{color:var(--text);border-color:var(--border2)}
+.copy-btn.copied{color:var(--green);border-color:var(--green-border)}
+.editable{
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  min-height:38px;
+  background:var(--surface);
+  color:var(--text);
+  white-space:pre-wrap;
+  word-break:break-word;
+  line-height:1.5;
+  transition:border-color .15s;
+}
+.editable:focus{
+  outline:none;
+  border-color:var(--text);
+  box-shadow:0 0 0 3px rgba(26,25,23,.06);
+}
+.editable.tall{min-height:70px}
+.editable.loading-shimmer{
+  background:linear-gradient(90deg,var(--surface2) 25%,var(--border) 50%,var(--surface2) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.2s infinite;
+  color:transparent;
+}
+@keyframes shimmer{to{background-position:-200% 0}}
+.mono{font-family:'DM Mono',monospace;font-size:13px}
+
+/* EXPORT */
+.export-bar{
+  display:flex;
+  gap:8px;
+  margin-top:1.5rem;
+  padding-top:1.25rem;
+  border-top:1px solid var(--border);
+}
+.btn-export{
+  flex:1;
+  padding:10px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  border-radius:var(--radius);
+  cursor:pointer;
+  transition:.12s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.btn-primary-sm{
+  background:var(--text);
+  color:white;
+  border:none;
+}
+.btn-primary-sm:hover{opacity:.85}
+.btn-outline-sm{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border2);
+}
+.btn-outline-sm:hover{background:var(--surface2)}
+.copy-ok{
+  text-align:center;
+  font-size:12px;
+  color:var(--green);
+  margin-top:6px;
+  display:none;
+  animation:fade .3s;
+}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* FOOTER */
+.footer{text-align:center;font-size:12px;color:var(--text3);margin-top:3rem}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Gatari Edutoys <span>— Quiz Product Filler</span></div>
+  <div class="api-badge">
+    <div class="dot" id="status-dot"></div>
+    <span id="status-label">API key belum diset</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-title">Auto-fill Produk untuk Gatari Quiz</div>
+  <div class="page-sub">Isi data produk, lalu AI menyesuaikan usia, aktivitas, mode bermain, dan pengalaman quiz Montessori.</div>
+
+
+
+  <!-- FORM INPUT -->
+  <div class="card">
+    <div class="card-title">Info produk — isi manual</div>
+    <div style="font-size:13px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:14px">Output sudah disesuaikan dengan Gatari Quiz 4 tahap: usia, aktivitas disukai, cara bermain, dan pengalaman yang membuat anak betah.</div>
+    <div class="grid2">
+      <div class="field">
+        <label>Nama produk <span class="req">*</span></label>
+        <input type="text" id="nama" placeholder="Cth: Puzzle Kayu Hewan 20 Pcs" />
+      </div>
+      <div class="field">
+        <label>Harga jual (Rp) <span class="req">*</span></label>
+        <input type="number" id="harga" placeholder="Cth: 95000" />
+      </div>
+    </div>
+    <div class="grid3">
+      <div class="field">
+        <label>Ukuran <span class="req">*</span></label>
+        <input type="text" id="ukuran" placeholder="Cth: 30 × 20 cm" />
+      </div>
+      <div class="field">
+        <label>Berat <span class="req">*</span></label>
+        <input type="text" id="berat" placeholder="Cth: 350 g" />
+      </div>
+      <div class="field">
+        <label>ID produk <span class="req">*</span></label>
+        <input type="number" id="pid" placeholder="Cth: 5" />
+      </div>
+    </div>
+    <div class="field">
+      <label>Foto produk <span style="font-weight:400;color:var(--text3)">(opsional — bantu AI analisis)</span></label>
+      <div class="photo-zone" id="drop-zone" onclick="triggerPhoto()">
+        <div class="upload-icon">↑</div>
+        <p>Klik atau drag foto produk ke sini</p>
+        <small>JPG, PNG, WEBP — maks 5MB</small>
+        <img id="photo-preview" onerror="this.style.display='none';" />
+        <button class="photo-remove" onclick="removePhoto(event)">✕ Hapus foto</button>
+        <input type="file" id="foto-input" accept="image/*" style="display:none" onchange="handlePhoto(event)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="alert error" id="err-msg"></div>
+  <div class="progress" id="prog"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+
+  <button class="gen-btn" id="gen-btn" onclick="generateAll()">
+    <div class="spinner"></div>
+    <span class="btn-text">Generate semua kolom dengan AI</span>
+    <span>↗</span>
+  </button>
+
+  <!-- RESULTS -->
+  <div class="card results-card" id="results-card">
+    <div class="card-title">Hasil generate — bisa diedit sebelum export</div>
+    <div class="result-tabs">
+      <button class="rtab active" onclick="switchTab('deskripsi')">Deskripsi</button>
+      <button class="rtab" onclick="switchTab('klasifikasi')">Quiz Match</button>
+      <button class="rtab" onclick="switchTab('paket')">Paket</button>
+    </div>
+
+    <div class="pane active" id="pane-deskripsi">
+      <div class="result-field-wrap">
+        <div class="result-label">Kategori <button class="copy-btn" onclick="copyF('r-kategori',this)">salin</button></div>
+        <div class="editable mono" id="r-kategori" contenteditable="true"></div>
+      </div>
+      <div class="result-field-wrap">
+        <div class="result-label">Deskripsi singkat (maks 15 kata) <button class="copy-btn" onclick="copyF('r-deskripsi',this)">salin</button></div>
+        <div class="editable" id="r-deskripsi" contenteditable="true"></div>
+      </div>
+      <div class="result-field-wrap">
+        <div class="result-label">Deskripsi untuk orang tua <button class="copy-btn" onclick="copyF('r-ortu',this)">salin</button></div>
+        <div class="editable tall" id="r-ortu" contenteditable="true"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-klasifikasi">
+      <div class="grid2">
+        <div class="result-field-wrap">
+          <div class="result-label">Usia min <button class="copy-btn" onclick="copyF('r-usiamin',this)">salin</button></div>
+          <div class="editable mono" id="r-usiamin" contenteditable="true"></div>
+        </div>
+        <div class="result-field-wrap">
+          <div class="result-label">Usia max <button class="copy-btn" onclick="copyF('r-usiamax',this)">salin</button></div>
+          <div class="editable mono" id="r-usiamax" contenteditable="true"></div>
+        </div>
+        <div class="result-field-wrap">
+          <div class="result-label">Aktivitas disukai <button class="copy-btn" onclick="copyF('r-aktivitas',this)">salin</button></div>
+          <div class="editable mono" id="r-aktivitas" contenteditable="true"></div>
+        </div>
+        <div class="result-field-wrap">
+          <div class="result-label">Cara bermain <button class="copy-btn" onclick="copyF('r-cara',this)">salin</button></div>
+          <div class="editable mono" id="r-cara" contenteditable="true"></div>
+        </div>
+      </div>
+      <div class="result-field-wrap">
+        <div class="result-label">Pengalaman yang membuat betah <button class="copy-btn" onclick="copyF('r-pengalaman',this)">salin</button></div>
+        <div class="editable mono" id="r-pengalaman" contenteditable="true"></div>
+      </div>
+      <div class="result-field-wrap">
+        <div class="result-label">Experience tags / kebutuhan bermain <button class="copy-btn" onclick="copyF('r-tags',this)">salin</button></div>
+        <div class="editable mono" id="r-tags" contenteditable="true"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-paket">
+      <div class="grid3">
+        <div class="result-field-wrap">
+          <div class="result-label">Paket Basic <button class="copy-btn" onclick="copyF('r-basic',this)">salin</button></div>
+          <div class="editable mono" id="r-basic" contenteditable="true"></div>
+        </div>
+        <div class="result-field-wrap">
+          <div class="result-label">Paket Recommended <button class="copy-btn" onclick="copyF('r-rec',this)">salin</button></div>
+          <div class="editable mono" id="r-rec" contenteditable="true"></div>
+        </div>
+        <div class="result-field-wrap">
+          <div class="result-label">Paket Optimal <button class="copy-btn" onclick="copyF('r-opt',this)">salin</button></div>
+          <div class="editable mono" id="r-opt" contenteditable="true"></div>
+        </div>
+      </div>
+      <div class="grid2" style="margin-top:4px">
+        <div class="result-field-wrap">
+          <div class="result-label">Rekomendasi utama <button class="copy-btn" onclick="copyF('r-isrec',this)">salin</button></div>
+          <div class="editable mono" id="r-isrec" contenteditable="true"></div>
+        </div>
+        <div class="result-field-wrap">
+          <div class="result-label">Stok <button class="copy-btn" onclick="copyF('r-stok',this)">salin</button></div>
+          <div class="editable mono" id="r-stok" contenteditable="true">ada</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="export-bar">
+      <button class="btn-export btn-primary-sm" onclick="copyAll()">📋 Salin baris Excel (semua kolom)</button>
+      <button class="btn-export btn-outline-sm" onclick="resetForm()">↺ Produk baru</button>
+    </div>
+    <div class="copy-ok" id="copy-ok">✓ Disalin! Paste langsung ke baris kosong di Google Sheet.</div>
+  </div>
+
+  <div class="footer">Gatari Edutoys · Internal Tool · Netlify Backend v1.1</div>
+</div>
+
+<script>
+let photoB64 = null, photoMime = null;
+
+function updateApiStatus(){
+  const dot = document.getElementById('status-dot');
+  const label = document.getElementById('status-label');
+  dot.classList.add('ok');
+  label.textContent = 'Backend Netlify siap';
+}
+
+// PHOTO
+function triggerPhoto(){
+  if(!document.getElementById('drop-zone').classList.contains('has-photo'))
+    document.getElementById('foto-input').click();
+}
+
+function handlePhoto(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  if(file.size > 5*1024*1024){alert('Foto terlalu besar, maks 5MB');return;}
+  const reader = new FileReader();
+  reader.onload = r => {
+    const src = r.result;
+    const preview = document.getElementById('photo-preview');
+    preview.src = src;
+    preview.style.display = 'block';
+    document.getElementById('drop-zone').classList.add('has-photo');
+    const comma = src.indexOf(',');
+    photoMime = src.substring(5, src.indexOf(';'));
+    photoB64 = src.substring(comma+1);
+  };
+  reader.readAsDataURL(file);
+}
+
+function removePhoto(e){
+  e.stopPropagation();
+  photoB64 = null; photoMime = null;
+  document.getElementById('photo-preview').style.display = 'none';
+  document.getElementById('photo-preview').src = '';
+  document.getElementById('drop-zone').classList.remove('has-photo');
+  document.getElementById('foto-input').value = '';
+}
+
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('drag-over')});
+dz.addEventListener('dragleave', ()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e=>{
+  e.preventDefault(); dz.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if(file && file.type.startsWith('image/')){
+    const dt = new DataTransfer(); dt.items.add(file);
+    document.getElementById('foto-input').files = dt.files;
+    handlePhoto({target:{files:[file]}});
+  }
+});
+
+// TABS
+function switchTab(name){
+  document.querySelectorAll('.rtab').forEach((t,i)=>{
+    t.classList.toggle('active',['deskripsi','klasifikasi','paket'][i]===name);
+  });
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pane-'+name).classList.add('active');
+}
+
+// PROGRESS
+let progVal = 0;
+function setProgress(pct){
+  const prog = document.getElementById('prog');
+  const bar = document.getElementById('prog-bar');
+  prog.style.display = 'block';
+  bar.style.width = pct+'%';
+  if(pct>=100) setTimeout(()=>{prog.style.display='none';bar.style.width='0%'},700);
+}
+
+// SHIMMER HELPERS
+const allResultIds = ['r-kategori','r-deskripsi','r-ortu','r-usiamin','r-usiamax','r-aktivitas','r-cara','r-pengalaman','r-tags','r-basic','r-rec','r-opt','r-isrec','r-stok'];
+function showShimmer(){
+  allResultIds.forEach(id=>{
+    const el = document.getElementById(id);
+    el.classList.add('loading-shimmer');
+    el.textContent = 'loading...';
+  });
+}
+function clearShimmer(){
+  allResultIds.forEach(id=>document.getElementById(id).classList.remove('loading-shimmer'));
+}
+
+// GENERATE
+async function generateAll(){
+  const nama = document.getElementById('nama').value.trim();
+  const ukuran = document.getElementById('ukuran').value.trim();
+  const berat = document.getElementById('berat').value.trim();
+  const harga = document.getElementById('harga').value.trim();
+
+  if(!nama||!ukuran||!berat){
+    showErr('Isi nama produk, ukuran, dan berat dulu ya.');
+    return;
+  }
+
+  const btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  document.getElementById('err-msg').style.display='none';
+  setProgress(15);
+
+  // Show results card with shimmer immediately
+  document.getElementById('results-card').style.display='block';
+  showShimmer();
+  switchTab('deskripsi');
+  document.getElementById('results-card').scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  const systemPrompt = `Kamu adalah asisten pengisi data produk untuk Gatari Edutoys, brand mainan edukasi kayu & Montessori-inspired Indonesia.
+
+TUJUAN:
+Mengisi data produk agar cocok dengan sistem Gatari Quiz 4 tahap yang non-labeling, observasional, dan Montessori-friendly.
+
+FLOW QUIZ GATARI:
+1. Usia anak
+2. Aktivitas yang paling sering disukai akhir-akhir ini
+3. Saat bermain, Si Kecil biasanya lebih menikmati...
+4. Jenis pengalaman bermain yang membuat Si Kecil lebih betah...
+
+ATURAN KETAT — ikuti persis:
+- kategori: pilih SATU: Motorik / Sensorik / Kognitif / Kreatif / Fisik / Bahasa / Practical Life
+- deskripsi: maks 15 kata, bahasa Indonesia, fokus manfaat langsung, lembut, tidak hard selling
+- deskripsi_ortu: 2-3 kalimat bahasa Indonesia. Jelaskan manfaat perkembangan anak dengan tone tenang, observational, Montessori-inspired. Hindari klaim medis.
+- usia_min & usia_max: pakai KODE INI PERSIS: 0-6 / 6-12 / 12-18 / 18-24 / 2-3 / 3-4 / 4-5 / 5-7
+
+FIELD UNTUK QUIZ — WAJIB PAKAI VALUE PERSIS:
+- aktivitas_disukai: pilih 1-3, pisahkan koma dari daftar ini:
+  menyusun_merapikan, gerak_eksplorasi, imajinatif, mengamati_detail, buka_pasang, coret_gambar, bahasa_membaca, berhitung_logika, practical_life
+- cara_bermain: pilih 1-3, pisahkan koma dari daftar ini:
+  mandiri_tenang, banyak_gerakan, eksplorasi_sensorik, problem_solving_sederhana
+- pengalaman_betah: pilih 1-3, pisahkan koma dari daftar ini:
+  tantangan_bertahap, repetitif_menenangkan, eksplorasi_bebas, hasil_visual_menarik
+- concern_tags: 2-5 tag pisah koma dari daftar ini:
+  fokus_tenang, koordinasi_tangan_mata, motorik_halus, motorik_kasar, sensori, kemandirian, problem_solving, pre_writing, bahasa, berhitung, imajinasi, practical_life, anti_gadget, konsentrasi, eksplorasi
+
+ATURAN MONTESSORI:
+- Jangan pakai label anak seperti aktif, tenang, cepat_bosan, fokus_lama, hiperaktif, sulit fokus.
+- Gunakan bahasa preferensi aktivitas, bukan karakter anak.
+- Produk boleh masuk beberapa kategori quiz jika memang relevan.
+- Pilih usia berdasarkan keamanan dan tingkat kesulitan, bukan sekadar nama produk.
+
+PAKET:
+- paket_basic: TRUE jika cocok untuk paket entry / harga mudah dibeli
+- paket_recommended: TRUE jika produk kuat untuk rekomendasi utama quiz
+- paket_optimal: TRUE jika cocok untuk paket lengkap/premium/bundling
+- is_recommended: TRUE jika produk ini sangat aman direkomendasikan lintas kebutuhan dan punya potensi bestseller
+- stok: selalu "ada"
+
+Balas HANYA JSON. Tidak ada teks lain, tidak ada markdown backtick.
+{"kategori":"...","deskripsi":"...","deskripsi_ortu":"...","usia_min":"...","usia_max":"...","aktivitas_disukai":"...","cara_bermain":"...","pengalaman_betah":"...","concern_tags":"...","paket_basic":"TRUE/FALSE","paket_recommended":"TRUE/FALSE","paket_optimal":"TRUE/FALSE","is_recommended":"TRUE/FALSE","stok":"ada"}`;
+
+  const userContent = [];
+  if(photoB64 && photoMime){
+    userContent.push({type:"image",source:{type:"base64",media_type:photoMime,data:photoB64}});
+  }
+  userContent.push({type:"text",text:`Isi data produk ini:
+Nama: ${nama}
+Ukuran: ${ukuran}
+Berat: ${berat}
+Harga: Rp${harga||'tidak diketahui'}
+
+Analisis dari nama${photoB64?' dan foto':''}nya, lalu isi semua kolom sesuai aturan.`});
+
+  try {
+    setProgress(40);
+    const resp = await fetch("/.netlify/functions/generate",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        system: systemPrompt,
+        userContent: userContent
+      })
+    });
+
+    setProgress(75);
+
+    if(!resp.ok){
+      const errData = await resp.json().catch(()=>({}));
+      throw new Error(errData.error || errData.error?.message || errData.message || `HTTP ${resp.status}`);
+    }
+
+    const data = await resp.json();
+    const raw = data.content?.map(c=>c.text||'').join('').trim();
+
+    let parsed;
+    try{
+      const clean = raw.replace(/```json|```/g,'').trim();
+      parsed = JSON.parse(clean);
+    }catch(e){
+      throw new Error('AI tidak mengembalikan format JSON yang valid. Coba generate ulang.');
+    }
+
+    clearShimmer();
+    setF('r-kategori', parsed.kategori);
+    setF('r-deskripsi', parsed.deskripsi);
+    setF('r-ortu', parsed.deskripsi_ortu);
+    setF('r-usiamin', parsed.usia_min);
+    setF('r-usiamax', parsed.usia_max);
+    setF('r-aktivitas', parsed.aktivitas_disukai);
+    setF('r-cara', parsed.cara_bermain);
+    setF('r-pengalaman', parsed.pengalaman_betah);
+    setF('r-tags', parsed.concern_tags);
+    setF('r-basic', parsed.paket_basic);
+    setF('r-rec', parsed.paket_recommended);
+    setF('r-opt', parsed.paket_optimal);
+    setF('r-isrec', parsed.is_recommended);
+    setF('r-stok', parsed.stok||'ada');
+
+    setProgress(100);
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    btn.querySelector('.btn-text').textContent = 'Generate ulang';
+
+  }catch(e){
+    clearShimmer();
+    setProgress(100);
+    showErr('Error: '+e.message);
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function setF(id,val){
+  document.getElementById(id).textContent = val||'';
+}
+
+function showErr(msg){
+  const el = document.getElementById('err-msg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.classList.add('error');
+  setTimeout(()=>el.style.display='none',6000);
+}
+
+// COPY
+function copyF(id, btn){
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent = '✓ disalin';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='salin';btn.classList.remove('copied')},1500);
+  });
+}
+
+function copyAll(){
+  const pid = document.getElementById('pid').value||'';
+  const nama = document.getElementById('nama').value||'';
+  const harga = document.getElementById('harga').value||'';
+  const ukuran = document.getElementById('ukuran').value||'';
+  const berat = document.getElementById('berat').value||'';
+  const g = id => document.getElementById(id).textContent.trim();
+
+  const cols = [
+    pid, nama, g('r-kategori'), harga, g('r-deskripsi'), g('r-ortu'),
+    ukuran, berat, g('r-usiamin'), g('r-usiamax'), g('r-aktivitas'), g('r-cara'),
+    g('r-pengalaman'), g('r-tags'), '', g('r-stok'), g('r-isrec'), g('r-basic'), g('r-rec'), g('r-opt')
+  ];
+  navigator.clipboard.writeText(cols.join('\t'));
+  const ok = document.getElementById('copy-ok');
+  ok.style.display='block';
+  setTimeout(()=>ok.style.display='none',3000);
+}
+
+function resetForm(){
+  document.getElementById('nama').value='';
+  document.getElementById('harga').value='';
+  document.getElementById('ukuran').value='';
+  document.getElementById('berat').value='';
+  document.getElementById('pid').value='';
+  removePhoto({stopPropagation:()=>{}});
+  document.getElementById('results-card').style.display='none';
+  document.querySelector('.gen-btn .btn-text').textContent='Generate semua kolom dengan AI';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// INIT
+updateApiStatus();
+</script>
+</body>
+</html>
