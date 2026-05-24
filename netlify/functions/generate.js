@@ -5,10 +5,9 @@ exports.handler = async function(event) {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
 if (!apiKey) {
-  return json(500, { 
-    error: "ANTHROPIC_API_KEY belum diset di Netlify Environment Variables.",
-    debug_keys: Object.keys(process.env).join(", ")
-  });
+return json(500, {
+  error: "ANTHROPIC_API_KEY belum diset di Netlify Environment Variables."
+});
 }
 
   let body;
