@@ -141,7 +141,7 @@ input:focus,select:focus{outline:none;border-color:var(--text);box-shadow:0 0 0 
     </div>
     <div class="field">
       <label>Foto produk <span style="font-weight:400;color:var(--text3)">(opsional — bantu AI analisis)</span></label>
-      <div class="photo-zone" id="drop-zone" onclick="triggerPhoto()">
+      <div class="photo-zone" id="drop-zone">
         <div class="upload-icon">↑</div>
         <p>Klik atau drag foto produk ke sini</p>
         <small>JPG, PNG, WEBP — maks 5MB</small>
@@ -261,8 +261,7 @@ function updateApiStatus(){
 }
 
 function triggerPhoto(){
-  if(!document.getElementById('drop-zone').classList.contains('has-photo'))
-    document.getElementById('foto-input').click();
+  document.getElementById('foto-input').click();
 }
 
 function handlePhoto(e){
@@ -294,6 +293,13 @@ function removePhoto(e){
 }
 
 const dz = document.getElementById('drop-zone');
+dz.addEventListener('click', function(e){
+  if(e.target === document.getElementById('foto-input')) return;
+  if(e.target.classList.contains('photo-remove')) return;
+  if(!dz.classList.contains('has-photo')){
+    document.getElementById('foto-input').click();
+  }
+});
 dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('drag-over')});
 dz.addEventListener('dragleave', ()=>dz.classList.remove('drag-over'));
 dz.addEventListener('drop', e=>{
