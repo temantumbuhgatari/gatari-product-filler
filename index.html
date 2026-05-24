@@ -29,323 +29,72 @@
   --radius:8px;
   --radius-lg:12px;
 }
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  font-size:15px;
-  line-height:1.6;
-}
-.topbar{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:0 2rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  height:52px;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;}
 .logo{font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--text)}
 .logo span{color:var(--text3);font-weight:400;margin-left:6px}
-.api-badge{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  color:var(--text3);
-}
+.api-badge{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3);}
 .dot{width:7px;height:7px;border-radius:50%;background:#d1d5db}
 .dot.ok{background:#22c55e}
 .container{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem}
-.page-title{
-  font-size:22px;
-  font-weight:600;
-  letter-spacing:-.02em;
-  margin-bottom:.25rem;
-}
+.page-title{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:.25rem;}
 .page-sub{font-size:14px;color:var(--text2);margin-bottom:2rem}
-
-
-
-/* SECTIONS */
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:1.5rem;
-  margin-bottom:1rem;
-}
-.card-title{
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  color:var(--text3);
-  margin-bottom:1.25rem;
-}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1rem;}
+.card-title{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:1.25rem;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .field{margin-bottom:12px}
-label{
-  display:block;
-  font-size:12px;
-  font-weight:500;
-  color:var(--text2);
-  margin-bottom:5px;
-}
+label{display:block;font-size:12px;font-weight:500;color:var(--text2);margin-bottom:5px;}
 label .req{color:#e85d04}
-input[type=text],input[type=number],select{
-  width:100%;
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;
-  padding:9px 12px;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  background:var(--surface);
-  color:var(--text);
-  transition:border-color .15s;
-  -webkit-appearance:none;
-}
-input:focus,select:focus{
-  outline:none;
-  border-color:var(--text);
-  box-shadow:0 0 0 3px rgba(26,25,23,.06);
-}
-
-/* PHOTO ZONE */
-.photo-zone{
-  border:1.5px dashed var(--border2);
-  border-radius:var(--radius-lg);
-  padding:2.5rem 1.5rem;
-  text-align:center;
-  cursor:pointer;
-  transition:.15s;
-  position:relative;
-}
+input[type=text],input[type=number],select{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);transition:border-color .15s;-webkit-appearance:none;}
+input:focus,select:focus{outline:none;border-color:var(--text);box-shadow:0 0 0 3px rgba(26,25,23,.06);}
+.photo-zone{border:1.5px dashed var(--border2);border-radius:var(--radius-lg);padding:2.5rem 1.5rem;text-align:center;cursor:pointer;transition:.15s;position:relative;}
 .photo-zone:hover{border-color:var(--text3);background:var(--surface2)}
 .photo-zone.has-photo{border-style:solid;border-color:var(--border);padding:0;overflow:hidden}
 .photo-zone.drag-over{border-color:var(--text);background:var(--surface2)}
-.upload-icon{
-  width:36px;height:36px;
-  border:1px solid var(--border2);
-  border-radius:var(--radius);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:.75rem;
-  font-size:16px;
-  color:var(--text3);
-}
+.upload-icon{width:36px;height:36px;border:1px solid var(--border2);border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;margin-bottom:.75rem;font-size:16px;color:var(--text3);}
 .photo-zone p{font-size:13px;color:var(--text3)}
 .photo-zone small{font-size:11px;color:var(--text3);display:block;margin-top:3px}
-#photo-preview{
-  width:100%;
-  max-height:240px;
-  object-fit:contain;
-  display:none;
-  border-radius:var(--radius);
-}
-.photo-remove{
-  position:absolute;
-  top:8px;right:8px;
-  background:rgba(0,0,0,.55);
-  color:white;
-  border:none;
-  border-radius:var(--radius);
-  padding:3px 8px;
-  font-size:11px;
-  cursor:pointer;
-  display:none;
-}
+#photo-preview{width:100%;max-height:240px;object-fit:contain;display:none;border-radius:var(--radius);}
+.photo-remove{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:white;border:none;border-radius:var(--radius);padding:3px 8px;font-size:11px;cursor:pointer;display:none;}
 .has-photo .photo-remove{display:block}
-
-/* GENERATE BTN */
-.gen-btn{
-  width:100%;
-  padding:13px;
-  font-family:'DM Sans',sans-serif;
-  font-size:15px;
-  font-weight:600;
-  background:var(--text);
-  color:white;
-  border:none;
-  border-radius:var(--radius-lg);
-  cursor:pointer;
-  margin-bottom:1.25rem;
-  transition:.15s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
+.gen-btn{width:100%;padding:13px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;background:var(--text);color:white;border:none;border-radius:var(--radius-lg);cursor:pointer;margin-bottom:1.25rem;transition:.15s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .gen-btn:hover{opacity:.88}
 .gen-btn:disabled{opacity:.4;cursor:not-allowed}
-.gen-btn .spinner{
-  width:14px;height:14px;
-  border:2px solid rgba(255,255,255,.3);
-  border-top-color:white;
-  border-radius:50%;
-  animation:spin .6s linear infinite;
-  display:none;
-}
+.gen-btn .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:none;}
 .gen-btn.loading .spinner{display:block}
 .gen-btn.loading .btn-text::after{content:'...'}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* PROGRESS */
-.progress{
-  height:3px;
-  background:var(--border);
-  border-radius:2px;
-  margin-bottom:1rem;
-  overflow:hidden;
-  display:none;
-}
-.progress-bar{
-  height:100%;
-  background:var(--text);
-  border-radius:2px;
-  transition:width .4s ease;
-}
-
-/* ERROR / SUCCESS */
-.alert{
-  border-radius:var(--radius-lg);
-  padding:.875rem 1rem;
-  font-size:13px;
-  margin-bottom:1rem;
-  display:none;
-}
+.progress{height:3px;background:var(--border);border-radius:2px;margin-bottom:1rem;overflow:hidden;display:none;}
+.progress-bar{height:100%;background:var(--text);border-radius:2px;transition:width .4s ease;}
+.alert{border-radius:var(--radius-lg);padding:.875rem 1rem;font-size:13px;margin-bottom:1rem;display:none;}
 .alert.error{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
-.alert.success{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
-
-/* RESULTS */
 .results-card{display:none}
-.result-tabs{
-  display:flex;
-  gap:4px;
-  margin-bottom:1.25rem;
-  border-bottom:1px solid var(--border);
-  padding-bottom:0;
-}
-.rtab{
-  font-size:13px;
-  font-weight:500;
-  padding:8px 14px;
-  border:none;
-  background:transparent;
-  color:var(--text3);
-  cursor:pointer;
-  border-bottom:2px solid transparent;
-  margin-bottom:-1px;
-  font-family:'DM Sans',sans-serif;
-  transition:.12s;
-}
+.result-tabs{display:flex;gap:4px;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0;}
+.rtab{font-size:13px;font-weight:500;padding:8px 14px;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'DM Sans',sans-serif;transition:.12s;}
 .rtab:hover{color:var(--text2)}
 .rtab.active{color:var(--text);border-bottom-color:var(--text)}
 .pane{display:none}
 .pane.active{display:block}
 .result-field-wrap{margin-bottom:12px}
-.result-label{
-  font-size:12px;
-  font-weight:500;
-  color:var(--text2);
-  margin-bottom:4px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.copy-btn{
-  font-size:11px;
-  font-family:'DM Sans',sans-serif;
-  color:var(--text3);
-  background:none;
-  border:1px solid var(--border);
-  border-radius:5px;
-  padding:2px 7px;
-  cursor:pointer;
-  transition:.1s;
-}
+.result-label{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+.copy-btn{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--text3);background:none;border:1px solid var(--border);border-radius:5px;padding:2px 7px;cursor:pointer;transition:.1s;}
 .copy-btn:hover{color:var(--text);border-color:var(--border2)}
 .copy-btn.copied{color:var(--green);border-color:var(--green-border)}
-.editable{
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;
-  padding:9px 12px;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  min-height:38px;
-  background:var(--surface);
-  color:var(--text);
-  white-space:pre-wrap;
-  word-break:break-word;
-  line-height:1.5;
-  transition:border-color .15s;
-}
-.editable:focus{
-  outline:none;
-  border-color:var(--text);
-  box-shadow:0 0 0 3px rgba(26,25,23,.06);
-}
+.editable{font-family:'DM Sans',sans-serif;font-size:14px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);min-height:38px;background:var(--surface);color:var(--text);white-space:pre-wrap;word-break:break-word;line-height:1.5;transition:border-color .15s;}
+.editable:focus{outline:none;border-color:var(--text);box-shadow:0 0 0 3px rgba(26,25,23,.06);}
 .editable.tall{min-height:70px}
-.editable.loading-shimmer{
-  background:linear-gradient(90deg,var(--surface2) 25%,var(--border) 50%,var(--surface2) 75%);
-  background-size:200% 100%;
-  animation:shimmer 1.2s infinite;
-  color:transparent;
-}
+.editable.loading-shimmer{background:linear-gradient(90deg,var(--surface2) 25%,var(--border) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;color:transparent;}
 @keyframes shimmer{to{background-position:-200% 0}}
 .mono{font-family:'DM Mono',monospace;font-size:13px}
-
-/* EXPORT */
-.export-bar{
-  display:flex;
-  gap:8px;
-  margin-top:1.5rem;
-  padding-top:1.25rem;
-  border-top:1px solid var(--border);
-}
-.btn-export{
-  flex:1;
-  padding:10px 16px;
-  font-family:'DM Sans',sans-serif;
-  font-size:14px;
-  font-weight:500;
-  border-radius:var(--radius);
-  cursor:pointer;
-  transition:.12s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-}
-.btn-primary-sm{
-  background:var(--text);
-  color:white;
-  border:none;
-}
+.export-bar{display:flex;gap:8px;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);}
+.btn-export{flex:1;padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:var(--radius);cursor:pointer;transition:.12s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-primary-sm{background:var(--text);color:white;border:none;}
 .btn-primary-sm:hover{opacity:.85}
-.btn-outline-sm{
-  background:transparent;
-  color:var(--text);
-  border:1px solid var(--border2);
-}
+.btn-outline-sm{background:transparent;color:var(--text);border:1px solid var(--border2);}
 .btn-outline-sm:hover{background:var(--surface2)}
-.copy-ok{
-  text-align:center;
-  font-size:12px;
-  color:var(--green);
-  margin-top:6px;
-  display:none;
-  animation:fade .3s;
-}
+.copy-ok{text-align:center;font-size:12px;color:var(--green);margin-top:6px;display:none;animation:fade .3s;}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-
-/* FOOTER */
 .footer{text-align:center;font-size:12px;color:var(--text3);margin-top:3rem}
 </style>
 </head>
@@ -355,7 +104,7 @@ input:focus,select:focus{
   <div class="logo">Gatari Edutoys <span>— Quiz Product Filler</span></div>
   <div class="api-badge">
     <div class="dot" id="status-dot"></div>
-    <span id="status-label">API key belum diset</span>
+    <span id="status-label">Menghubungkan...</span>
   </div>
 </div>
 
@@ -363,9 +112,6 @@ input:focus,select:focus{
   <div class="page-title">Auto-fill Produk untuk Gatari Quiz</div>
   <div class="page-sub">Isi data produk, lalu AI menyesuaikan usia, aktivitas, mode bermain, dan pengalaman quiz Montessori.</div>
 
-
-
-  <!-- FORM INPUT -->
   <div class="card">
     <div class="card-title">Info produk — isi manual</div>
     <div style="font-size:13px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:14px">Output sudah disesuaikan dengan Gatari Quiz 4 tahap: usia, aktivitas disukai, cara bermain, dan pengalaman yang membuat anak betah.</div>
@@ -415,7 +161,6 @@ input:focus,select:focus{
     <span>↗</span>
   </button>
 
-  <!-- RESULTS -->
   <div class="card results-card" id="results-card">
     <div class="card-title">Hasil generate — bisa diedit sebelum export</div>
     <div class="result-tabs">
@@ -502,7 +247,7 @@ input:focus,select:focus{
     <div class="copy-ok" id="copy-ok">✓ Disalin! Paste langsung ke baris kosong di Google Sheet.</div>
   </div>
 
-  <div class="footer">Gatari Edutoys · Internal Tool · Netlify Backend v1.1</div>
+  <div class="footer">Gatari Edutoys · Internal Tool · Netlify Backend v1.2</div>
 </div>
 
 <script>
@@ -515,7 +260,6 @@ function updateApiStatus(){
   label.textContent = 'Backend Netlify siap';
 }
 
-// PHOTO
 function triggerPhoto(){
   if(!document.getElementById('drop-zone').classList.contains('has-photo'))
     document.getElementById('foto-input').click();
@@ -528,6 +272,7 @@ function handlePhoto(e){
   const reader = new FileReader();
   reader.onload = r => {
     const src = r.result;
+    if(!src) return;
     const preview = document.getElementById('photo-preview');
     preview.src = src;
     preview.style.display = 'block';
@@ -561,7 +306,6 @@ dz.addEventListener('drop', e=>{
   }
 });
 
-// TABS
 function switchTab(name){
   document.querySelectorAll('.rtab').forEach((t,i)=>{
     t.classList.toggle('active',['deskripsi','klasifikasi','paket'][i]===name);
@@ -570,8 +314,6 @@ function switchTab(name){
   document.getElementById('pane-'+name).classList.add('active');
 }
 
-// PROGRESS
-let progVal = 0;
 function setProgress(pct){
   const prog = document.getElementById('prog');
   const bar = document.getElementById('prog-bar');
@@ -580,7 +322,6 @@ function setProgress(pct){
   if(pct>=100) setTimeout(()=>{prog.style.display='none';bar.style.width='0%'},700);
 }
 
-// SHIMMER HELPERS
 const allResultIds = ['r-kategori','r-deskripsi','r-ortu','r-usiamin','r-usiamax','r-aktivitas','r-cara','r-pengalaman','r-tags','r-basic','r-rec','r-opt','r-isrec','r-stok'];
 function showShimmer(){
   allResultIds.forEach(id=>{
@@ -593,7 +334,6 @@ function clearShimmer(){
   allResultIds.forEach(id=>document.getElementById(id).classList.remove('loading-shimmer'));
 }
 
-// GENERATE
 async function generateAll(){
   const nama = document.getElementById('nama').value.trim();
   const ukuran = document.getElementById('ukuran').value.trim();
@@ -611,7 +351,6 @@ async function generateAll(){
   document.getElementById('err-msg').style.display='none';
   setProgress(15);
 
-  // Show results card with shimmer immediately
   document.getElementById('results-card').style.display='block';
   showShimmer();
   switchTab('deskripsi');
@@ -631,7 +370,7 @@ FLOW QUIZ GATARI:
 ATURAN KETAT — ikuti persis:
 - kategori: pilih SATU: Motorik / Sensorik / Kognitif / Kreatif / Fisik / Bahasa / Practical Life
 - deskripsi: maks 15 kata, bahasa Indonesia, fokus manfaat langsung, lembut, tidak hard selling
-- deskripsi_ortu: 2-3 kalimat bahasa Indonesia. Jelaskan manfaat perkembangan anak dengan tone tenang, observational, Montessori-inspired. Hindari klaim medis.
+- deskripsi_ortu: 3 kalimat bahasa Indonesia. Ikuti struktur dan tone persis seperti CONTOH di bawah.
 - usia_min & usia_max: pakai KODE INI PERSIS: 0-6 / 6-12 / 12-18 / 18-24 / 2-3 / 3-4 / 4-5 / 5-7
 
 FIELD UNTUK QUIZ — WAJIB PAKAI VALUE PERSIS:
@@ -649,6 +388,30 @@ ATURAN MONTESSORI:
 - Gunakan bahasa preferensi aktivitas, bukan karakter anak.
 - Produk boleh masuk beberapa kategori quiz jika memang relevan.
 - Pilih usia berdasarkan keamanan dan tingkat kesulitan, bukan sekadar nama produk.
+
+TONE & POSITIONING PREMIUM — WAJIB DIIKUTI:
+- Tulis seperti brand lokal premium yang percaya diri, bukan toko yang sedang diskon
+- "Lipstick effect": buat pembeli merasa ini investasi kecil yang berdampak nyata pada tumbuh kembang
+- "Perasaan naik kelas": orang tua merasa jadi ayah/ibu yang lebih sadar dan intentional
+- Narasi aspirasi: bukan "mainan murah berkualitas" tapi "pilihan orang tua yang tahu apa yang terbaik untuk anaknya"
+- DILARANG menyebut kata: murah, terjangkau, hemat, diskon, harga, promo, cocok di kantong
+- Jangan sebut value for money atau perbandingan harga apapun
+- Tone: hangat, percaya diri, seperti rekomendasi dari teman yang benar-benar paham Montessori — bukan iklan
+- Posisikan produk sebagai "alat tumbuh kembang", bukan sekadar "mainan"
+
+PANDUAN STRUKTUR DESKRIPSI ORTU — WAJIB IKUTI:
+- Kalimat 1: Sebutkan fitur produk yang SPESIFIK (jumlah kepingan/lubang/warna, bahan, mekanisme) + apa yang anak lakukan dengannya
+- Kalimat 2: Aktivitas konkret yang terjadi saat bermain + keterampilan spesifik yang berkembang
+- Kalimat 3: Dampak jangka panjang pada kemandirian, karakter, atau kepercayaan diri anak
+- Gunakan kalimat AKTIF dan mengalir — hindari kalimat pasif atau kaku
+- JANGAN mulai dengan "[Nama produk] membantu..." atau "[Nama produk] adalah..." atau "Dengan [nama produk]..."
+- Setiap kalimat harus berbeda fokus: fitur spesifik → aktivitas & skill → dampak karakter
+
+CONTOH DESKRIPSI ORTU YANG BURUK — JANGAN DITIRU:
+"Kotak sortir membantu anak belajar mencocokkan bentuk dengan lubang yang sesuai, melatih logika sederhana dan koordinasi tangan-mata. Aktivitas memasukkan balok ke lubang yang tepat mendorong anak untuk mengamati, mencoba, dan menemukan sendiri jawabannya. Proses berulang yang menenangkan ini mendukung konsentrasi dan kemandirian sejak dini."
+
+CONTOH DESKRIPSI ORTU YANG BENAR — TIRU PERSIS KUALITAS DAN STRUKTURNYA:
+"Kotak sortir kayu dengan 13 lubang bentuk berbeda mengajak anak mengenali geometri sambil melatih ketepatan gerakan tangan secara langsung. Proses mencoba, gagal, dan menemukan lubang yang tepat sendiri membangun kemampuan problem solving dan koordinasi tangan-mata tanpa perlu diarahkan. Berulang-ulang memainkannya, anak membangun daya ingat bentuk, kepekaan spasial, dan kepercayaan diri saat berhasil menyelesaikan tantangan kecil dengan usahanya sendiri."
 
 PAKET:
 - paket_basic: TRUE jika cocok untuk paket entry / harga mudah dibeli
@@ -670,17 +433,14 @@ Ukuran: ${ukuran}
 Berat: ${berat}
 Harga: Rp${harga||'tidak diketahui'}
 
-Analisis dari nama${photoB64?' dan foto':''}nya, lalu isi semua kolom sesuai aturan.`});
+Analisis dari nama${photoB64?' dan foto':''}nya, lalu isi semua kolom sesuai aturan. Perhatikan khusus panduan TONE & POSITIONING PREMIUM dan STRUKTUR DESKRIPSI ORTU — ikuti contoh yang diberikan.`});
 
   try {
     setProgress(40);
     const resp = await fetch("/.netlify/functions/generate",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        system: systemPrompt,
-        userContent: userContent
-      })
+      body:JSON.stringify({system: systemPrompt, userContent: userContent})
     });
 
     setProgress(75);
@@ -743,7 +503,6 @@ function showErr(msg){
   setTimeout(()=>el.style.display='none',6000);
 }
 
-// COPY
 function copyF(id, btn){
   const text = document.getElementById(id).textContent.trim();
   navigator.clipboard.writeText(text).then(()=>{
@@ -760,7 +519,6 @@ function copyAll(){
   const ukuran = document.getElementById('ukuran').value||'';
   const berat = document.getElementById('berat').value||'';
   const g = id => document.getElementById(id).textContent.trim();
-
   const cols = [
     pid, nama, g('r-kategori'), harga, g('r-deskripsi'), g('r-ortu'),
     ukuran, berat, g('r-usiamin'), g('r-usiamax'), g('r-aktivitas'), g('r-cara'),
@@ -784,7 +542,6 @@ function resetForm(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// INIT
 updateApiStatus();
 </script>
 </body>
